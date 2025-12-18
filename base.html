@@ -1,0 +1,1795 @@
+<!DOCTYPE html>
+<html lang="uz">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FreelanceX - Freelancer Platformasi | Investor Taqdimoti</title>
+    <link rel="icon" type="image/x-icon" href="logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-blue: #1a56db;
+            --primary-dark: #0f2a5e;
+            --primary-light: #3b82f6;
+            --accent-blue: #2563eb;
+            --accent-green: #10b981;
+            --accent-purple: #8b5cf6;
+            --accent-orange: #f59e0b;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --gray-700: #374151;
+            --gray-900: #111827;
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.12);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', 'Roboto', sans-serif;
+            color: var(--gray-900);
+            background-color: #ffffff;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .nav-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo-icon {
+            color: var(--primary-blue);
+            font-size: 1.7rem;
+        }
+
+        
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--gray-700);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-blue);
+        }
+
+        .nav-links a.active {
+            color: var(--primary-blue);
+        }
+
+        .nav-links a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--primary-blue);
+        }
+
+        .nav-indicator {
+            position: absolute;
+            bottom: 0;
+            height: 3px;
+            background-color: var(--primary-blue);
+            transition: left 0.3s ease, width 0.3s ease;
+        }
+
+        section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 6rem 0 4rem;
+            position: relative;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--primary-dark);
+            line-height: 1.2;
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: var(--gray-700);
+            margin-bottom: 3rem;
+            max-width: 700px;
+        }
+
+        .section-number {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            font-size: 5rem;
+            font-weight: 800;
+            color: rgba(26, 86, 219, 0.05);
+            z-index: -1;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.85rem 2rem;
+            border-radius: 15px;
+            font-weight: 600;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: var(--transition);
+            cursor: pointer;
+            border: none;
+            font-family: inherit;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-blue);
+            color: white;
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--primary-blue);
+            border: 2px solid var(--primary-blue);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--primary-blue);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .btn-demo {
+            background-color: var(--accent-green);
+            color: white;
+            box-shadow: var(--shadow-md);
+            margin-left: 1rem;
+        }
+
+        .btn-demo:hover {
+            background-color: #0da271;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .hero-actions {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .btn-rgb {
+            position: relative;
+            background: #3c3939;
+            color: var(--primary-blue);
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .btn-rgb::before {
+            content: "";
+            position: absolute;
+            inset: -2px;
+            background: linear-gradient(90deg,
+                    #4285F4,
+                    #EA4335,
+                    #FBBC05,
+                    #34A853,
+                    #4285F4);
+            background-size: 300% 300%;
+            animation: google-rgb 5s linear infinite;
+            border-radius: 15px;
+            z-index: -2;
+        }
+
+        .btn-rgb::after {
+            content: "";
+            position: absolute;
+            inset: 3px;
+            background: white;
+            border-radius: 15px;
+            z-index: -1;
+        }
+
+        .btn-rgb:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        @keyframes google-rgb {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            100% {
+                background-position: 300% 50%;
+            }
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #f6f9ff 0%, #ffffff 100%);
+            text-align: center;
+            padding-top: 8rem;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            color: var(--primary-dark);
+            line-height: 1.1;
+        }
+
+        .hero-tagline {
+            font-size: 1.5rem;
+            color: var(--gray-700);
+            margin-bottom: 2.5rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-description {
+            font-size: 1.1rem;
+            color: var(--gray-700);
+            margin-bottom: 3rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-bg {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 40%;
+            background: linear-gradient(to right, #1a56db, #3b82f6);
+            opacity: 0.03;
+            z-index: -1;
+        }
+
+        .problems-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .problem-card {
+            background: white;
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition);
+            border-top: 4px solid var(--primary-blue);
+        }
+
+        .problem-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .problem-icon {
+            font-size: 2.5rem;
+            color: var(--primary-blue);
+            margin-bottom: 1.5rem;
+        }
+
+        .problem-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--primary-dark);
+        }
+
+        .solution-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .solution-list {
+            list-style: none;
+        }
+
+        .solution-list li {
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .solution-list i {
+            color: var(--accent-green);
+            font-size: 1.2rem;
+            margin-top: 0.3rem;
+            flex-shrink: 0;
+        }
+
+        .solution-visual {
+            background: linear-gradient(135deg, #1a56db, var(--accent-green));
+            border-radius: 1rem;
+            padding: 2rem;
+            color: white;
+            box-shadow: var(--shadow-lg);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .feature-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--primary-dark);
+        }
+
+        .market-data {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .market-card {
+            background: white;
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: var(--shadow-md);
+            text-align: center;
+        }
+
+        .market-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 0.5rem;
+        }
+
+        .charts-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .chart-box {
+            background: white;
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: var(--shadow-md);
+        }
+
+        .timeline {
+            max-width: 800px;
+            margin: 3rem auto 0;
+            position: relative;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 30px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--primary-blue);
+        }
+
+        .timeline-item {
+            display: flex;
+            margin-bottom: 2.5rem;
+            position: relative;
+        }
+
+        .timeline-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--primary-blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            margin-right: 2rem;
+            flex-shrink: 0;
+            z-index: 1;
+        }
+
+        .timeline-content {
+            background: white;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            box-shadow: var(--shadow-md);
+            flex: 1;
+        }
+
+        .value-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .value-card {
+            background: white;
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: var(--shadow-md);
+            border-top: 4px solid var(--accent-green);
+            transition: var(--transition);
+        }
+
+        .value-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+
+        .team-member {
+            text-align: center;
+        }
+
+        .member-avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: var(--gray-200);
+            margin: 0 auto 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.5rem;
+            color: var(--gray-700);
+        }
+
+        .team-member .member-avatar img {
+            width: 130px;
+            height: 130px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 3px solid var(--primary-blue);
+            transition: transform 0.3s ease;
+        }
+
+        .team-member .member-avatar img:hover {
+            transform: scale(1.1);
+        }
+
+        .team-member .member-avatar {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .investor-cta {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary-blue));
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+            border-radius: 1rem;
+            margin-top: 4rem;
+        }
+
+        .investor-cta h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .investor-cta p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            opacity: 0.9;
+        }
+
+        footer {
+            background: var(--primary-dark);
+            color: white;
+            padding: 4rem 0 2rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .footer-logo {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: white;
+        }
+
+        .footer-text {
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            color: var(--gray-300);
+        }
+
+        .copyright {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--gray-300);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 992px) {
+            .hero-title {
+                font-size: 2.8rem;
+            }
+
+            .solution-content {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .section-title {
+                font-size: 2.2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero-title {
+                font-size: 2.4rem;
+            }
+
+            .hero-tagline {
+                font-size: 1.3rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .market-data {
+                grid-template-columns: 1fr;
+            }
+
+            .timeline::before {
+                left: 20px;
+            }
+
+            .timeline-icon {
+                width: 50px;
+                height: 50px;
+                margin-right: 1.5rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .container {
+                padding: 0 1.5rem;
+            }
+
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .investor-cta h2 {
+                font-size: 2rem;
+            }
+
+            .hero-actions {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .btn-demo {
+                margin-left: 0;
+            }
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .slide-in-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .slide-in-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .slide-in-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .slide-in-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        #freelancex-intro {
+            position: fixed;
+            inset: 0;
+            background: #00000028;
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 99999;
+            perspective: 1200px;
+            transition: opacity 0.8s ease;
+        }
+
+        #freelancex-intro img {
+            width: 600px;
+            transform-style: preserve-3d;
+            animation: freelancexSpin 3.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        body.intro-active {
+            overflow: hidden;
+        }
+
+        body.intro-active>*:not(#freelancex-intro) {
+            filter: blur(14px);
+            transition: filter 1s ease;
+        }
+
+        @keyframes freelancexSpin {
+            0% {
+                transform: rotateY(0deg) scale(0.8);
+                opacity: 0;
+            }
+
+            15% {
+                opacity: 1;
+            }
+
+            60% {
+                transform: rotateY(720deg) scale(1);
+            }
+
+            100% {
+                transform: rotateX(720deg) scale(1.25);
+                opacity: 1;
+            }
+        }
+
+        .fa-spinner {
+            margin-right: 0.5rem;
+        }
+
+        .financial-table {
+            background: white;
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: var(--shadow-md);
+            margin-top: 2rem;
+        }
+
+        .table-responsive {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        th {
+            background: var(--gray-50);
+            font-weight: 600;
+            color: var(--primary-dark);
+        }
+
+        tr:hover {
+            background: var(--gray-50);
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .tech-item {
+            background: var(--gray-100);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            color: var(--primary-dark);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="freelancex-intro">
+        <img src="logo.png" alt="FreelanceX Logo">
+    </div>
+
+    <div class="nav-container">
+        <nav>
+            <div class="logo">
+                <div class="logo-icon">
+                    <image src="logo.png" alt="FreelanceX Logo" width="60" height="60" />
+                </div>
+                
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home" class="active">Bosh Sahifa</a></li>
+                <li><a href="#problems">Muammolar</a></li>
+                <li><a href="#solution">Yechim</a></li>
+                <li><a href="#features">Imkoniyatlar</a></li>
+                <li><a href="#market">Bozor Tahlili</a></li>
+                <li><a href="#financial">Moliyaviy Tahlil</a></li>
+                <li><a href="#expansion">Kengayish</a></li>
+                <li><a href="#value">Investor Uchun</a></li>
+                <li><a href="#team">Jamoa</a></li>
+            </ul>
+        </nav>
+        <div class="nav-indicator" id="navIndicator"></div>
+    </div>
+
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="section-number">01</div>
+            <h1 class="hero-title fade-in">FreelanceX</h1>
+            <p class="hero-tagline fade-in">"Professional freelancerlar va mijozlar uchun yagona platforma"</p>
+            <p class="hero-description fade-in">
+                FreelanceX — bu O'zbekistondagi birinchi professional freelancer platformasi bo'lib, malakali
+                mutaxassislar bilan kompaniyalar o'rtasida ishonchli aloqani o'rnatadi. Loyiha bozor tizimsizligi,
+                ishonchsizlik va samarasizlik muammolarini hal qilish uchun ishlab chiqilgan.
+            </p>
+            <div class="fade-in">
+                <div class="hero-actions">
+                    <a href="#problems" class="btn btn-primary btn-rgb">
+                        <i class="fas fa-info-circle"></i>
+                        Batafsil →
+                    </a>
+                    <a href="#financial" class="btn btn-demo">
+                        <i class="fas fa-chart-line"></i>
+                        Moliyaviy Ko'rsatkichlar
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="hero-bg"></div>
+    </section>
+
+    <section id="problems">
+        <div class="container">
+            <div class="section-number">02</div>
+            <h2 class="section-title slide-in-left">Hozirgi Freelance Bozoridagi Muammolar</h2>
+            <p class="section-subtitle slide-in-left">
+                Bugungi kunda O'zbekistonda freelance bozori tizimsizlik, shaffoflik yo'qligi va ishonchsizlik kabi
+                muammolar bilan to'la.
+            </p>
+
+            <div class="problems-grid">
+                <div class="problem-card fade-in">
+                    <div class="problem-icon">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <h3 class="problem-title">Tizimsiz Bozor</h3>
+                    <p>Freelancerlar Telegram, Instagram yoki oddiy saytlar orqali ish qidirishadi. Bu bozorda
+                        markazlashtirilgan platforma yo'qligi ish topishni qiyinlashtiradi.</p>
+                </div>
+
+                <div class="problem-card fade-in">
+                    <div class="problem-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h3 class="problem-title">Ishonchli Mutaxassislarni Topish Qiyin</h3>
+                    <p>Mijozlar malakali freelancerlarni qidirishda ularning portfelosi, reytingi va tajribasini
+                        solishtira olmaydi. 75% mijoz to'g'ri mutaxassis topishda qiyinchilik chekadi.</p>
+                </div>
+
+                <div class="problem-card fade-in">
+                    <div class="problem-icon">
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <h3 class="problem-title">Ishonchsiz To'lov Tizimi</h3>
+                    <p>To'lovlar odatda shaxsiy tarzda amalga oshiriladi, bu esa to'lov xavfsizligini ta'minlamaydi. 60%
+                        freelancer vaqtida to'lanmagan ishlar haqida shikoyat qiladi.</p>
+                </div>
+
+                <div class="problem-card fade-in">
+                    <div class="problem-icon">
+                        <i class="fas fa-chart-bar"></i>
+                    </div>
+                    <h3 class="problem-title">Malaka Oshirish Imkoniyatlari Cheklangan</h3>
+                    <p>Freelancerlar yangi ko'nikmalar o'rganish, sertifikatlar olish va martaba rivojlantirish uchun
+                        imkoniyatlarga ega emas.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="solution">
+        <div class="container">
+            <div class="section-number">03</div>
+            <h2 class="section-title slide-in-right">Yechim – FreelanceX Qanday Yechim Beradi?</h2>
+            <p class="section-subtitle slide-in-right">
+                FreelanceX barcha freelancer va mijozlarni yagona platformaga jamlaydi va barcha qatnashchilar uchun
+                ishonchli muhit yaratadi.
+            </p>
+
+            <div class="solution-content">
+                <div class="solution-text">
+                    <ul class="solution-list">
+                        <li class="fade-in">
+                            <i class="fas fa-check-circle"></i>
+                            <div>
+                                <strong>Yagona Professional Platforma:</strong> Barcha freelancerlar va mijozlar bir
+                                platformada. Har bir toifa uchun maxsus bo'limlar.
+                            </div>
+                        </li>
+                        <li class="fade-in">
+                            <i class="fas fa-check-circle"></i>
+                            <div>
+                                <strong>Shaffof Reyting va Sharh Tizimi:</strong> Har bir freelancer uchun haqiqiy
+                                reytinglar va sharhlar. Mijozlar oldin ishlagan mijozlarning fikrlari bilan tanishishi
+                                mumkin.
+                            </div>
+                        </li>
+                        <li class="fade-in">
+                            <i class="fas fa-check-circle"></i>
+                            <div>
+                                <strong>Xavfsiz To'lov Tizimi:</strong> Escrow tizimi orqali xavfsiz to'lov. Har ikki
+                                tomonga ham kafolat.
+                            </div>
+                        </li>
+                        <li class="fade-in">
+                            <i class="fas fa-check-circle"></i>
+                            <div>
+                                <strong>Malaka Oshirish Kurslari:</strong> Platforma doirasida freelancerlar uchun
+                                malaka oshirish kurslari va sertifikatlar.
+                            </div>
+                        </li>
+                        <li class="fade-in">
+                            <i class="fas fa-check-circle"></i>
+                            <div>
+                                <strong>AI Asosidagi Moslik:</strong> Sun'iy intellekt yordamida freelancer va loyihalar
+                                o'rtasida eng mos juftlikni aniqlash.
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="solution-visual fade-in">
+                    <h3 style="color: white; margin-bottom: 1.5rem; font-size: 1.8rem;">FreelanceX Ekotizimi</h3>
+                    <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+                        <div style="display: flex; align-items: center; gap: 1rem;">
+                            <div style="background: rgba(255,255,255,0.2); padding: 0.75rem; border-radius: 50%;">
+                                <i class="fas fa-user-tie"></i>
+                            </div>
+                            <div>
+                                <h4 style="margin-bottom: 0.25rem;">Professional Freelancerlar</h4>
+                                <p style="opacity: 0.9; font-size: 0.9rem;">Dasturchilar, dizaynerlar, mutaxassislar
+                                </p>
+                            </div>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 1rem;">
+                            <div style="background: rgba(255,255,255,0.2); padding: 0.75rem; border-radius: 50%;">
+                                <i class="fas fa-building"></i>
+                            </div>
+                            <div>
+                                <h4 style="margin-bottom: 0.25rem;">Korxona Mijozlari</h4>
+                                <p style="opacity: 0.9; font-size: 0.9rem;">Startuplar, KKMlar, davlat korxonalari</p>
+                            </div>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 1rem;">
+                            <div style="background: rgba(255,255,255,0.2); padding: 0.75rem; border-radius: 50%;">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                            <div>
+                                <h4 style="margin-bottom: 0.25rem;">Ta'lim Markazlari</h4>
+                                <p style="opacity: 0.9; font-size: 0.9rem;">Kurslar, sertifikatlar, malaka oshirish</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.2);">
+                        <h4 style="margin-bottom: 0.5rem;">Platforma Afzalliklari:</h4>
+                        <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                            <span
+                                style="background: rgba(255,255,255,0.2); padding: 0.4rem 0.8rem; border-radius: 2rem; font-size: 0.85rem;">+50%
+                                samaradorlik</span>
+                            <span
+                                style="background: rgba(255,255,255,0.2); padding: 0.4rem 0.8rem; border-radius: 2rem; font-size: 0.85rem;">-40%
+                                vaqt</span>
+                            <span
+                                style="background: rgba(255,255,255,0.2); padding: 0.4rem 0.8rem; border-radius: 2rem; font-size: 0.85rem;">+95%
+                                ishonch</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="features">
+        <div class="container">
+            <div class="section-number">04</div>
+            <h2 class="section-title slide-in-left">Platforma Imkoniyatlari</h2>
+            <p class="section-subtitle slide-in-left">
+                FreelanceX freelance bozori tajribasini o'zgartirish uchun mo'ljallangan keng qamrovli vositalar
+                to'plamini
+                taklif etadi.
+            </p>
+
+            <div class="features-grid">
+                <div class="feature-card fade-in">
+                    <div style="font-size: 2rem; color: var(--primary-blue); margin-bottom: 1rem;">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h3>Aqlli Qidiruv Tizimi</h3>
+                    <p>Toifa, tajriba, reyting, narx va joylashuv bo'yicha keng qamrovli qidiruv. AI yordamida eng mos
+                        natijalar.</p>
+                    <div style="margin-top: 1rem; font-size: 0.9rem; color: var(--primary-blue); font-weight: 600;">
+                        <i class="fas fa-filter"></i> 20+ filtrlash parametri
+                    </div>
+                </div>
+
+                <div class="feature-card fade-in">
+                    <div style="font-size: 2rem; color: var(--primary-blue); margin-bottom: 1rem;">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h3>Shaffof Reyting Tizimi</h3>
+                    <p>Har bir freelancer uchun 5 balli baholash tizimi. Ish sifat, vaqtida topshirish, muloyimlik
+                        kabi ko'rsatkichlar.</p>
+                    <div style="margin-top: 1rem; font-size: 0.9rem; color: var(--primary-blue); font-weight: 600;">
+                        <i class="fas fa-shield-alt"></i> 100% ishonchli sharhlar
+                    </div>
+                </div>
+
+                <div class="feature-card fade-in">
+                    <div style="font-size: 2rem; color: var(--primary-blue); margin-bottom: 1rem;">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <h3>Xavfsiz To'lov Tizimi</h3>
+                    <p>Escrow tizimi orqali xavfsiz to'lov. Loyiha tugagunga qadar to'lov platformada saqlanadi.</p>
+                    <div style="margin-top: 1rem; font-size: 0.9rem; color: var(--primary-blue); font-weight: 600;">
+                        <i class="fas fa-money-bill-wave"></i> 0% to'lov xavfi
+                    </div>
+                </div>
+
+                <div class="feature-card fade-in">
+                    <div style="font-size: 2rem; color: var(--primary-blue); margin-bottom: 1rem;">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3>AI Yordamchi</h3>
+                    <p>Loyiha tavsifidan freelancer tanlashda yordam beruvchi sun'iy intellekt yordamchisi.</p>
+                    <div style="margin-top: 1rem; font-size: 0.9rem; color: var(--primary-blue); font-weight: 600;">
+                        <i class="fas fa-bolt"></i> 24/7 darhol javob
+                    </div>
+                </div>
+
+                <div class="feature-card fade-in">
+                    <div style="font-size: 2rem; color: var(--primary-blue); margin-bottom: 1rem;">
+                        <i class="fas fa-chart-pie"></i>
+                    </div>
+                    <h3>Real-vaqt Statistikasi</h3>
+                    <p>Freelancerlar uchun daromad, mijozlar uchun xarajatlar statistikasi. Har oy hisobotlar.</p>
+                    <div style="margin-top: 1rem; font-size: 0.9rem; color: var(--primary-blue); font-weight: 600;">
+                        <i class="fas fa-chart-bar"></i> Real vaqtda ma'lumotlar
+                    </div>
+                </div>
+
+                <div class="feature-card fade-in">
+                    <div style="font-size: 2rem; color: var(--primary-blue); margin-bottom: 1rem;">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>Mobil Ilova</h3>
+                    <p>iOS va Android uchun to'liq funksionallikdagi mobil ilova. Push-bildirishnomalar, chat,
+                        bildirishnomalar.</p>
+                    <div style="margin-top: 1rem; font-size: 0.9rem; color: var(--primary-blue); font-weight: 600;">
+                        <i class="fas fa-check-circle"></i> 100% mobil optimallashtirilgan
+                    </div>
+                </div>
+            </div>
+
+            <div class="tech-stack fade-in" style="margin-top: 4rem;">
+                <div class="tech-item"><i class="fab fa-react"></i> React.js</div>
+                <div class="tech-item"><i class="fab fa-node-js"></i> Node.js</div>
+                <div class="tech-item"><i class="fas fa-database"></i> PostgreSQL</div>
+                <div class="tech-item"><i class="fab fa-docker"></i> Docker</div>
+                <div class="tech-item"><i class="fas fa-robot"></i> AI/ML</div>
+                <div class="tech-item"><i class="fas fa-shield-alt"></i> SSL/TLS</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="market">
+        <div class="container">
+            <div class="section-number">05</div>
+            <h2 class="section-title slide-in-right">Bozor Tahlili va Imkoniyatlar</h2>
+            <p class="section-subtitle slide-in-right">
+                O'zbekistonda freelance bozorining tez o'sishi va platformaning potentsial o'sish imkoniyatlari.
+            </p>
+
+            <div class="market-data">
+                <div class="market-card fade-in">
+                    <h3>Bozor Hajmi</h3>
+                    <div class="market-value">$50M+</div>
+                    <p>O'zbekiston freelance bozori</p>
+                    <p style="margin-top: 0.5rem; font-size: 0.9rem; color: var(--gray-700);">Yillik 25% o'sish</p>
+                </div>
+
+                <div class="market-card fade-in">
+                    <h3>Faol Freelancerlar</h3>
+                    <div class="market-value">100K+</div>
+                    <p>O'zbekistonda faol freelancerlar</p>
+                    <p style="margin-top: 0.5rem; font-size: 0.9rem; color: var(--gray-700);">Har yili 30% o'sish</p>
+                </div>
+
+                <div class="market-card fade-in">
+                    <h3>Platforma Ulushi</h3>
+                    <div class="market-value">15%</div>
+                    <p>Birinchi yil maqsadi</p>
+                    <p style="margin-top: 0.5rem; font-size: 0.9rem; color: var(--gray-700);">2-yilda 30% maqsad</p>
+                </div>
+
+                <div class="market-card fade-in">
+                    <h3>Komissiya Darajasi</h3>
+                    <div class="market-value">10-15%</div>
+                    <p>Platforma komissiyasi</p>
+                    <p style="margin-top: 0.5rem; font-size: 0.9rem; color: var(--gray-700);">Xalqaro standart</p>
+                </div>
+            </div>
+
+            <div class="charts-container">
+                <div class="chart-box fade-in">
+                    <h3 style="margin-bottom: 1.5rem;">Bozor O'sish Prognozi</h3>
+                    <canvas id="marketChart" height="200"></canvas>
+                </div>
+
+                <div class="chart-box fade-in">
+                    <h3 style="margin-bottom: 1.5rem;">Toifalar Bo'yicha Taqsimot</h3>
+                    <canvas id="categoryChart" height="200"></canvas>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="financial">
+        <div class="container">
+            <div class="section-number">06</div>
+            <h2 class="section-title slide-in-left">Moliyaviy Tahlil</h2>
+            <p class="section-subtitle slide-in-left">
+                Aniq daromad modeli, tez zararsizlik nuqtasi va kuchli o'sish potentsiali.
+            </p>
+
+            <div class="market-data">
+                <div class="market-card fade-in">
+                    <h3>Dastlabki Investitsiya</h3>
+                    <div class="market-value">72M so'm</div>
+                    <p>Platforma ishga tushirish</p>
+                    <p style="margin-top: 0.5rem; font-size: 0.9rem; color: var(--gray-700);">12 oylik rivojlantirish
+                    </p>
+                </div>
+
+                <div class="market-card fade-in">
+                    <h3>12-oylik Foyda</h3>
+                    <div class="market-value">120M so'm</div>
+                    <p>Birinchi yil oxirida</p>
+                    <p style="margin-top: 0.5rem; font-size: 0.9rem; color: var(--gray-700);">67% daromad o'sishi</p>
+                </div>
+
+                <div class="market-card fade-in">
+                    <h3>ROI</h3>
+                    <div class="market-value">1.67x</div>
+                    <p>Investitsiya qaytimi</p>
+                    <p style="margin-top: 0.5rem; font-size: 0.9rem; color: var(--gray-700);">Yuqori rentabellik</p>
+                </div>
+
+                <div class="market-card fade-in">
+                    <h3>Zararsizlik Nuqtasi</h3>
+                    <div class="market-value">8 oy</div>
+                    <p>Ishga tushirishdan keyin</p>
+                    <p style="margin-top: 0.5rem; font-size: 0.9rem; color: var(--gray-700);">Tez foydaga chiqish</p>
+                </div>
+            </div>
+
+            <div class="financial-table fade-in">
+                <h3 style="margin-bottom: 1.5rem;">Moliyaviy Xulosa (12 oylik)</h3>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Ko'rsatkich</th>
+                                <th>Miqdori</th>
+                                <th>Izoh</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Jami Investitsiya</td>
+                                <td><strong>72,000,000 so'm</strong></td>
+                                <td>Platforma rivojlantirish, marketing va operatsion xarajatlar</td>
+                            </tr>
+                            <tr>
+                                <td>Platforma daromadi</td>
+                                <td><strong>192,000,000 so'm</strong></td>
+                                <td>Komissiya, premium obuna, reklama</td>
+                            </tr>
+                            <tr>
+                                <td>Operatsion xarajatlar</td>
+                                <td><strong>72,000,000 so'm</strong></td>
+                                <td>Dasturchilar, marketing, infratuzilma</td>
+                            </tr>
+                            <tr>
+                                <td>Sof foyda</td>
+                                <td><strong style="color: var(--accent-green);">120,000,000 so'm</strong></td>
+                                <td>12-oylik sof daromad</td>
+                            </tr>
+                            <tr>
+                                <td>ROI</td>
+                                <td><strong>167%</strong></td>
+                                <td>Investitsiya qaytimi</td>
+                            </tr>
+                            <tr>
+                                <td>Brek-even nuqtasi</td>
+                                <td><strong>8 oy</strong></td>
+                                <td>Foydaga chiqish vaqti</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="charts-container">
+                <div class="chart-box fade-in">
+                    <h3 style="margin-bottom: 1.5rem;">Daromad O'sish Prognozi</h3>
+                    <canvas id="revenueChart" height="200"></canvas>
+                </div>
+
+                <div class="chart-box fade-in">
+                    <h3 style="margin-bottom: 1.5rem;">Xarajatlar Tarkibi</h3>
+                    <canvas id="expenseChart" height="200"></canvas>
+                </div>
+            </div>
+
+            <div class="investor-cta fade-in">
+                <h2>Investorlar Uchun Ajoyib Imkoniyat</h2>
+                <p>FreelanceX - bu tez o'sadigan freelance bozorida birinchi o'rinni egallash imkoniyati. $50 million+
+                    bozor, 25% yillik o'sish sur'ati, yuqori rentabellik.</p>
+                <div style="display: flex; gap: 1rem; justify-content: center; margin-top: 2rem; flex-wrap: wrap;">
+                    <a href="#team" class="btn btn-primary">Jamoa Bilan Tanishing</a>
+                    <a href="#value" class="btn" style="background: white; color: var(--primary-blue);">Qo'shimcha
+                        Ma'lumot</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="expansion">
+        <div class="container">
+            <div class="section-number">07</div>
+            <h2 class="section-title slide-in-right">Modernizatsiya va Kengayish</h2>
+            <p class="section-subtitle slide-in-right">
+                Platforma evolyutsiyasi va bozor kengayishi uchun strategik yo'l xaritasi.
+            </p>
+
+            <div class="timeline">
+                <div class="timeline-item fade-in">
+                    <div class="timeline-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <h3 style="margin-bottom: 0.5rem;">MVP Ishlab Chiqish (3 oy)</h3>
+                        <p>Asosiy funksiyalar: foydalanuvchi profili, loyiha joylashtirish, taklif qilish, to'lov
+                            tizimi. Budget: 25M so'm.</p>
+                        <div style="margin-top: 0.75rem; display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                            <span
+                                style="background: var(--gray-100); padding: 0.25rem 0.75rem; border-radius: 2rem; font-size: 0.85rem;">Core
+                                platform</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item fade-in">
+                    <div class="timeline-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <h3 style="margin-bottom: 0.5rem;">Beta Test (2 oy)</h3>
+                        <p>500+ freelancer va 100+ mijoz bilan test rejimi. Xatolarni tuzatish va UX takomillashtirish.
+                            Budget: 15M so'm.</p>
+                        <div style="margin-top: 0.75rem; display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                            <span
+                                style="background: var(--gray-100); padding: 0.25rem 0.75rem; border-radius: 2rem; font-size: 0.85rem;">User
+                                feedback</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item fade-in">
+                    <div class="timeline-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <h3 style="margin-bottom: 0.5rem;">Ommaga E'lon (1 oy)</h3>
+                        <p>Global ochilish, marketing kampaniyasi, hamkorlik tarmog'ini kengaytirish. Budget: 20M so'm.
+                        </p>
+                        <div style="margin-top: 0.75rem; display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                            <span
+                                style="background: var(--gray-100); padding: 0.25rem 0.75rem; border-radius: 2rem; font-size: 0.85rem;">Marketing
+                                launch</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item fade-in">
+                    <div class="timeline-icon">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <h3 style="margin-bottom: 0.5rem;">Xususiyatlar Kengaytmasi (4 oy)</h3>
+                        <p>AI asosidagi loyiha mosligi, kengaytirilgan tizimlar, mobil ilova, ko'p tillilik. Budget: 12M
+                            so'm.</p>
+                        <div style="margin-top: 0.75rem; display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                            <span
+                                style="background: var(--gray-100); padding: 0.25rem 0.75rem; border-radius: 2rem; font-size: 0.85rem;">Feature
+                                expansion</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="value">
+        <div class="container">
+            <div class="section-number">08</div>
+            <h2 class="section-title slide-in-left">Investor Uchun Qimmat</h2>
+            <p class="section-subtitle slide-in-left">
+                FreelanceX aniq afzalliklar va o'sish potentsiali bilan jalb qiluvchi investitsiya imkoniyatini taklif
+                etadi.
+            </p>
+
+            <div class="value-grid">
+                <div class="value-card fade-in">
+                    <div style="font-size: 2.5rem; color: var(--accent-green); margin-bottom: 1rem;">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Yuqori Rentabellik</h3>
+                    <p>167% ROI va 8 oyda brek-even nuqtasi - investorlar uchun jalb qiluvchi moliyaviy ko'rsatkichlar.
+                    </p>
+                    <div style="margin-top: 1rem; font-size: 0.9rem; color: var(--accent-green); font-weight: 600;">
+                        <i class="fas fa-coins"></i> 120M so'm 12-oylik foyda
+                    </div>
+                </div>
+
+                <div class="value-card fade-in">
+                    <div style="font-size: 2.5rem; color: var(--accent-green); margin-bottom: 1rem;">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3>Birinchi Bozor Ustunligi</h3>
+                    <p>O'zbekistonda birinchi professional freelance platformasi - bozorda yetakchi o'rinni egallash
+                        imkoniyati.</p>
+                    <div style="margin-top: 1rem; font-size: 0.9rem; color: var(--accent-green); font-weight: 600;">
+                        <i class="fas fa-trophy"></i> Birinchi platforma ustunligi
+                    </div>
+                </div>
+
+                <div class="value-card fade-in">
+                    <div style="font-size: 2.5rem; color: var(--accent-green); margin-bottom: 1rem;">
+                        <i class="fas fa-expand-arrows-alt"></i>
+                    </div>
+                    <h3>Masshtablanadigan Model</h3>
+                    <p>Platforma arxitekturasi Markaziy Osiyo bozorlariga kengayish uchun mo'ljallangan.</p>
+                    <div style="margin-top: 1rem; font-size: 0.9rem; color: var(--accent-green); font-weight: 600;">
+                        <i class="fas fa-layer-group"></i> 3x o'sish 2 yil ichida
+                    </div>
+                </div>
+
+                <div class="value-card fade-in">
+                    <div style="font-size: 2.5rem; color: var(--accent-green); margin-bottom: 1rem;">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h3>Haqiqiy Bozor Muammosi</h3>
+                    <p>Freelance bozoridagi haqiqiy, keng tarqalgan muammoni isbotlangan talab bilan hal qiladi.</p>
+                    <div style="margin-top: 1rem; font-size: 0.9rem; color: var(--accent-green); font-weight: 600;">
+                        <i class="fas fa-users"></i> 100K+ potensial foydalanuvchi
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 3rem; background: linear-gradient(135deg, var(--primary-blue), var(--primary-dark)); border-radius: 1rem; padding: 2.5rem; color: white;"
+                class="fade-in">
+                <h3 style="margin-bottom: 1rem; color: white;">Investitsiya Ustunliklari</h3>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                    <div>
+                        <ul style="list-style: none;">
+                            <li style="margin-bottom: 0.75rem; display: flex; align-items: flex-start; gap: 0.75rem;">
+                                <i class="fas fa-check" style="margin-top: 0.25rem;"></i>
+                                <span>$50 million+ O'zbekiston freelance bozoriga ega</span>
+                            </li>
+                            <li style="margin-bottom: 0.75rem; display: flex; align-items: flex-start; gap: 0.75rem;">
+                                <i class="fas fa-check" style="margin-top: 0.25rem;"></i>
+                                <span>Yuqori saqlanish potentsiali bilan takroriy daromad modeli</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+                        <ul style="list-style: none;">
+                            <li style="margin-bottom: 0.75rem; display: flex; align-items: flex-start; gap: 0.75rem;">
+                                <i class="fas fa-check" style="margin-top: 0.25rem;"></i>
+                                <span>Mintaqaviy freelance bozorida birinchi o'rinda bo'lish ustunligi</span>
+                            </li>
+                            <li style="margin-bottom: 0.75rem; display: flex; align-items: flex-start; gap: 0.75rem;">
+                                <i class="fas fa-check" style="margin-top: 0.25rem;"></i>
+                                <span>Tajribali jamoa texnologiya va biznes boshqaruvi sohasida</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.2);">
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); text-align: center; gap: 1rem;">
+                        <div>
+                            <div style="font-size: 2rem; font-weight: 700;">1.67x</div>
+                            <div style="font-size: 0.9rem; opacity: 0.9;">ROI potentsiali</div>
+                        </div>
+                        <div>
+                            <div style="font-size: 2rem; font-weight: 700;">25%</div>
+                            <div style="font-size: 0.9rem; opacity: 0.9;">Yillik bozor o'sishi</div>
+                        </div>
+                        <div>
+                            <div style="font-size: 2rem; font-weight: 700;">$5M</div>
+                            <div style="font-size: 0.9rem; opacity: 0.9;">3-yil prognozli qiymat</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="team">
+        <div class="container">
+            <div class="section-number">09</div>
+            <h2 class="section-title slide-in-right">Loyiha Mualliflari</h2>
+            <p class="section-subtitle slide-in-right">
+                FreelanceX - texnologiya, biznes boshqaruvi va marketing sohasidagi mutaxassislar tomonidan ishlab
+                chiqilgan bo'lib, freelance bozorini o'zgartirish uchun mo'ljallangan.
+            </p>
+
+            <div class="team-grid">
+                <div class="team-member fade-in">
+                    <div class="member-avatar">
+                        <image src="biloliddin.jpg" alt="CEO">
+                    </div>
+                    <h3>Boydedayev Biloliddin</h3>
+                    <p style="color: var(--primary-blue); margin-bottom: 0.5rem;">CEO & Asoschi</p>
+                    <p>Texnologiya va biznes tajribasi. Ilgari 5 ta muvaffaqiyatli startupni boshqargan.</p>
+                </div>
+
+                <div class="team-member fade-in">
+                    <div class="member-avatar">
+                        <image src="shohiddin.jpg" alt="CTO">
+                    </div>
+                    <h3>Axmedov Shohiddin</h3>
+                    <p style="color: var(--primary-blue); margin-bottom: 0.5rem;">CTO & Bosh Dasturchi</p>
+                    <p>12+ yillik full-stack dasturlash tajribasi. Microservices arxitektura mutaxassisi.</p>
+                </div>
+
+                <div class="team-member fade-in">
+                    <div class="member-avatar">
+                        <image src="omadbek.jpg" alt="Designer">
+                    </div>
+                    <h3>Xomidaliyev Omadbek</h3>
+                    <p style="color: var(--primary-blue); margin-bottom: 0.5rem;">Bosh Dizayner</p>
+                    <p>8+ yillik UI/UX dizayn tajribasi. Apple, Google design systems mutaxassisi.</p>
+                </div>
+                
+            </div>
+
+            <div style="margin-top: 4rem; text-align: center;" class="fade-in">
+                <h3 style="margin-bottom: 1rem;">FreelanceX Vision</h3>
+                <p style="max-width: 800px; margin: 0 auto; font-size: 1.1rem;">
+                    Biz professional freelancerlar va mijozlar o'rtasida shaffof, samarali va ishonchli aloqani
+                    yaratishga ishonamiz. FreelanceX nafaqat platforma - bu O'zbekistonda freelance madaniyatini
+                    rivojlantirish va professional mutaxassislarga yangi imkoniyatlar yaratish harakatidir.
+                </p>
+            </div>
+
+            <div class="investor-cta fade-in" style="margin-top: 4rem;">
+                <h2>Investitsiya Imkoniyatidan Foydalaning</h2>
+                <p>FreelanceX ga 72 million so'm investitsiya qilish taklifi: 25% kompaniya ulushi, 12 oy ichida 1.67x
+                    ROI potentsiali. Loyihani keyingi bosqichga olib chiqing.</p>
+                <div style="display: flex; gap: 1rem; justify-content: center; margin-top: 2rem; flex-wrap: wrap;">
+                    <a href="#" class="btn btn-primary"
+                        style="background: white; color: var(--primary-blue);">Investitsiya Tafsilotlari</a>
+                    <a href="https://t.me/freelancex_uz" class="btn" style="background: var(--accent-green);">Aloqa
+                        Qilish</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">FreelanceX</div>
+            <p class="footer-text">
+                Shaffoflik, texnologiya va innovatsiya orqali freelance bozorini o'zgartirish. Biz bilan birga
+                professional
+                freelance kelajagini quring.
+            </p>
+
+            <div style="display: flex; justify-content: center; gap: 2rem; margin-bottom: 2rem; flex-wrap: wrap;">
+                <a href="#home" style="color: white; text-decoration: none;">Bosh Sahifa</a>
+                <a href="#problems" style="color: white; text-decoration: none;">Muammolar</a>
+                <a href="#solution" style="color: white; text-decoration: none;">Yechim</a>
+                <a href="#financial" style="color: white; text-decoration: none;">Moliyaviy Tahlil</a>
+                <a href="#team" style="color: white; text-decoration: none;">Jamoa</a>
+            </div>
+
+            <div style="display: flex; justify-content: center; gap: 1.5rem; margin-bottom: 2rem; font-size: 1.5rem;">
+                <a href="https://t.me/freelancex_uz" style="color: white;"><i class="fab fa-telegram"></i></a>
+                <a href="https://www.linkedin.com/company/freelancex" style="color: white;"><i
+                        class="fab fa-linkedin"></i></a>
+                <a href="tel:+998901234567" style="color: white;"><i class="fas fa-phone"></i></a>
+                <a href="mailto:info@freelancex.uz?subject=FreelanceX%20platformasi%20bo'yicha%20murojaat&body=Assalomu%20alaykum,%0A%0AMen%20FreelanceX%20platformasi%20bo'yicha%20sizga%20murojaat%20qilmoqchiman."
+                    style="color: white;"><i class="fas fa-envelope"></i></a>
+            </div>
+
+            <div class="copyright">
+                © 2025 FreelanceX. Barcha huquqlar himoyalangan. Bu investorlar va hamkorlar uchun maxsus tayyorlangan
+                taqdimot.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Navigation indicator
+            const navLinks = document.querySelectorAll('.nav-links a');
+            const navIndicator = document.getElementById('navIndicator');
+
+            function updateNavIndicator() {
+                const activeLink = document.querySelector('.nav-links a.active');
+                if (activeLink) {
+                    const linkRect = activeLink.getBoundingClientRect();
+                    const navRect = document.querySelector('nav').getBoundingClientRect();
+
+                    navIndicator.style.width = `${linkRect.width}px`;
+                    navIndicator.style.left = `${linkRect.left - navRect.left}px`;
+                }
+            }
+
+            setTimeout(updateNavIndicator, 100);
+            window.addEventListener('resize', updateNavIndicator);
+
+            // Scroll handling
+            window.addEventListener('scroll', function () {
+                const sections = document.querySelectorAll('section');
+                let currentSectionId = '';
+
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop - 100;
+                    const sectionHeight = section.clientHeight;
+                    if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
+                        currentSectionId = section.id;
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === `#${currentSectionId}`) {
+                        link.classList.add('active');
+                    }
+                });
+
+                updateNavIndicator();
+                triggerAnimations();
+            });
+
+            // Smooth scrolling
+            navLinks.forEach(link => {
+                link.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetSection = document.querySelector(targetId);
+
+                    if (targetSection) {
+                        window.scrollTo({
+                            top: targetSection.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            // Initialize Charts
+            function initializeCharts() {
+                // Market Growth Chart
+                const marketCtx = document.getElementById('marketChart').getContext('2d');
+                new Chart(marketCtx, {
+                    type: 'line',
+                    data: {
+                        labels: ['2024', '2025', '2026', '2027', '2028'],
+                        datasets: [{
+                            label: 'Bozor Hajmi ($ million)',
+                            data: [50, 62.5, 78, 97.5, 122],
+                            borderColor: '#8b5cf6',
+                            backgroundColor: 'rgba(139, 92, 246, 0.1)',
+                            borderWidth: 3,
+                            fill: true,
+                            tension: 0.4
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                display: true,
+                                position: 'top'
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: false,
+                                ticks: {
+                                    callback: function (value) {
+                                        return '$' + value + 'M';
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+
+                // Category Distribution Chart
+                const categoryCtx = document.getElementById('categoryChart').getContext('2d');
+                new Chart(categoryCtx, {
+                    type: 'pie',
+                    data: {
+                        labels: ['Dasturlash', 'Dizayn', 'Marketing', 'Ma\'lumotlar tahlili', 'Boshqa'],
+                        datasets: [{
+                            data: [35, 25, 20, 10, 10],
+                            backgroundColor: [
+                                '#1a56db',
+                                '#10b981',
+                                '#f59e0b',
+                                '#8b5cf6',
+                                '#64748b'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                position: 'bottom'
+                            }
+                        }
+                    }
+                });
+
+                // Revenue Chart
+                const revenueCtx = document.getElementById('revenueChart').getContext('2d');
+                new Chart(revenueCtx, {
+                    type: 'line',
+                    data: {
+                        labels: ['Oy 1', 'Oy 2', 'Oy 3', 'Oy 4', 'Oy 5', 'Oy 6', 'Oy 7', 'Oy 8', 'Oy 9', 'Oy 10', 'Oy 11', 'Oy 12'],
+                        datasets: [{
+                            label: 'Oylik Daromad (million so\'m)',
+                            data: [0, 2, 5, 8, 12, 18, 25, 35, 50, 70, 95, 120],
+                            borderColor: '#10b981',
+                            backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                            borderWidth: 3,
+                            fill: true,
+                            tension: 0.4
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                display: true,
+                                position: 'top'
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                ticks: {
+                                    callback: function (value) {
+                                        return value + 'M';
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+
+                // Expense Chart
+                const expenseCtx = document.getElementById('expenseChart').getContext('2d');
+                new Chart(expenseCtx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Dasturchilar', 'Marketing', 'Infratuzilma', 'Dizayn', 'Boshqaruv'],
+                        datasets: [{
+                            data: [36, 20, 8, 5, 3],
+                            backgroundColor: [
+                                '#1a56db',
+                                '#10b981',
+                                '#f59e0b',
+                                '#8b5cf6',
+                                '#64748b'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                position: 'bottom'
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Animation trigger
+            function triggerAnimations() {
+                const fadeElements = document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right');
+
+                fadeElements.forEach(element => {
+                    const elementTop = element.getBoundingClientRect().top;
+                    const elementVisible = 150;
+
+                    if (elementTop < window.innerHeight - elementVisible) {
+                        element.classList.add('visible');
+                    }
+                });
+            }
+
+            // Intro animation
+            document.body.classList.add("intro-active");
+
+            setTimeout(() => {
+                const intro = document.getElementById("freelancex-intro");
+                intro.style.opacity = "0";
+                document.body.classList.remove("intro-active");
+
+                setTimeout(() => {
+                    intro.remove();
+                }, 800);
+            }, 3200);
+
+            // Initialize
+            initializeCharts();
+            triggerAnimations();
+            setTimeout(triggerAnimations, 300);
+        });
+    </script>
+</body>
+
+</html>
